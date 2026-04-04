@@ -1,0 +1,118 @@
+
+.step-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 40px 24px;
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+.step-type-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.step-icon { font-size: 16px; }
+
+.step-cue {
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 300;
+  color: var(--accent2);
+  line-height: 1.4;
+  max-width: 580px;
+}
+
+.step-text {
+  line-height: 1.5;
+  max-width: 580px;
+}
+
+.step-text.primary {
+  font-size: clamp(22px, 4.5vw, 32px);
+  font-weight: 400;
+}
+
+.step-text.secondary {
+  font-size: clamp(16px, 3vw, 22px);
+  color: var(--muted);
+}
+
+.score-bar {
+  font-size: 16px;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+}
+
+.speech-err { font-size: 13px; color: #ff6b6b; }
+
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-play {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 18px;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.btn-play:hover { border-color: var(--accent); transform: scale(1.08); }
+
+.btn-mic {
+  padding: 14px 36px;
+  border-radius: 100px;
+  background: rgba(232,255,71,0.1);
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-mic:hover { background: rgba(232,255,71,0.2); transform: scale(1.03); }
+.btn-mic.active {
+  background: rgba(232,255,71,0.2);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.btn-next {
+  padding: 14px 36px;
+  border-radius: 100px;
+  background: var(--accent);
+  color: #0a0a0f;
+  font-size: 15px;
+  font-weight: 500;
+  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 0 30px rgba(232,255,71,0.15);
+}
+.btn-next:hover { transform: scale(1.04); box-shadow: 0 0 50px rgba(232,255,71,0.3); }
+
+.btn-skip {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 8px 12px;
+  transition: color 0.2s;
+}
+.btn-skip:hover { color: var(--text); }
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,255,71,0.3); }
+  50%       { box-shadow: 0 0 0 10px rgba(232,255,71,0); }
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }

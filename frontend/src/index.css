@@ -1,0 +1,31 @@
+
+:root {
+  --bg:       #0a0a0f;
+  --surface:  #13131a;
+  --border:   #1e1e2e;
+  --accent:   #e8ff47;
+  --accent2:  #47c5ff;
+  --a-color:  #ff6b6b;
+  --b-color:  #47c5ff;
+  --text:     #e8e8f0;
+  --muted:    #6b6b80;
+  --radius:   12px;
+  --font-head: 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+button { cursor: pointer; border: none; background: none; font-family: inherit; }

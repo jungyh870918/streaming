@@ -1,0 +1,99 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Build & Distribution
+dist/
+build/
+.next/
+out/
+.nuxt/
+coverage/
+.cache/
+.output/
+.pytest_cache/
+.env.*.local
+
+# Vercel
+.vercel/
+.vercel
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# OS Files
+Thumbs.db
+.DS_Store
+*.swp
+*.swo
+*~
+.AppleDouble
+.LSOverride
+._*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Testing
+coverage/
+.nyc_output/
+.mocha_suite
+
+# Misc
+*.bak
+*.tmp
+.cache/
+temp/
+tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+*.egg
+
+# Local development
+local.conf
+.local
+
+# Shell scripts (if you want to keep them out of git, uncomment):
+# *.sh
+# *.ps1
+

@@ -1,0 +1,27 @@
+{
+  "buildCommand": "npm run build --prefix frontend",
+  "framework": "other",
+  "public": "frontend/dist",
+  "functions": {
+    "backend/api.py": {
+      "runtime": "python3.11"
+    }
+  },
+  "env": {
+    "DATABASE_URL": "@neon_database_url"
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/api.py"
+    },
+    {
+      "src": "/audio/(.*)",
+      "dest": "backend/api.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/dist/$1"
+    }
+  ]
+}
