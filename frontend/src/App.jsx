@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import DialogueList from './components/DialogueList'
 import Player from './components/Player'
+import Admin from './components/Admin'
 import './App.css'
 
 export default function App() {
-  const [playing, setPlaying] = useState(null) // {dialogueId, audioUrl, timelineUrl, title}
-  const [loading, setLoading] = useState(false)
-  const [error,   setError]   = useState(null)
+  const [playing,   setPlaying]   = useState(null)
+  const [loading,   setLoading]   = useState(false)
+  const [error,     setError]     = useState(null)
+  const [showAdmin, setShowAdmin] = useState(false)
 
   async function startDialogue(dialogueId) {
     setLoading(true)
     setError(null)
     try {
-      // 음원 생성 요청 (이미 있으면 캐시 반환)
       const res  = await fetch(`/api/dialogues/${dialogueId}/generate`, { method: 'POST' })
       const data = await res.json()
       if (data.status === 'ready') {
@@ -31,15 +32,16 @@ export default function App() {
     }
   }
 
-  if (playing) return (
-    <Player {...playing} onExit={() => setPlaying(null)} />
-  )
+  if (playing) return <Player {...playing} onExit={() => setPlaying(null)} />
 
   return (
     <div className="app-shell">
       <header className="app-header">
-        <h1 className="logo">DIALOGUE<br/>ENGINE</h1>
-        <p className="tagline">PM6R 반복 훈련 시스템</p>
+        <div>
+          <h1 className="logo">DIALOGUE<br/>ENGINE</h1>
+          <p className="tagline">PM6R 반복 훈련 시스템</p>
+        </div>
+        <button className="admin-btn" onClick={() => setShowAdmin(true)}>관리자</button>
       </header>
       {loading
         ? <div className="loading-screen">
@@ -53,6 +55,7 @@ export default function App() {
           ? <div className="loading-screen" style={{color:'#ff6b6b'}}>{error}</div>
           : <DialogueList onStart={startDialogue} />
       }
+      {showAdmin && <Admin onClose={() => { setShowAdmin(false) }} />}
     </div>
   )
 }

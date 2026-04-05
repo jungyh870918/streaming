@@ -148,6 +148,93 @@ async def create_custom(req: CustomDialogueRequest):
 async def cache_stats():
     return tts.stats()
 
+
+
+# ══════════════════════════════════════════════════════════════
+# 관리자 API
+# ══════════════════════════════════════════════════════════════
+
+class DialogueCreateRequest(BaseModel):
+    id: str
+    title: str
+    lines: list   # [{speaker, text, translation}]
+
+@app.get("/api/admin/dialogues")
+async def admin_list(db: Session = Depends(get_db)):
+    """모든 다이얼로그 + 음원 상태."""
+    all_d = get_all_dialogues()
+    result = []
+    for d in all_d:
+        audio_ready    = (OUTPUT_DIR / d["id"] / "full.mp3").exists()
+        duration_sec   = None
+        if audio_ready:
+            tl_path = OUTPUT_DIR / d["id"] / "timeline.json"
+            if tl_path.exists():
+                import json as _json
+                tl = _json.loads(tl_path.read_text(encoding="utf-8"))
+                duration_sec = tl.get("duration_sec")
+        result.append({**d, "audio_ready": audio_ready, "duration_sec": duration_sec})
+    return {"dialogues": result}
+
+
+@app.post("/api/admin/dialogues")
+async def admin_create(req: DialogueCreateRequest, db: Session = Depends(get_db)):
+    """새 다이얼로그 추가 (DB 저장)."""
+    try:
+        from .models_db import Dialogue as DModel
+        existing = db.query(DModel).filter(DModel.id == req.id).first()
+        if existing:
+            raise HTTPException(400, f"ID '{req.id}' already exists.")
+        db.add(DModel(id=req.id, title=req.title, lines=req.lines))
+        db.commit()
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(500, str(e))
+    return {"status": "created", "id": req.id}
+
+
+@app.delete("/api/admin/dialogues/{dialogue_id}")
+async def admin_delete(dialogue_id: str, db: Session = Depends(get_db)):
+    """다이얼로그 + 생성된 음원 삭제."""
+    import shutil
+    try:
+        from .models_db import Dialogue as DModel
+        db.query(DModel).filter(DModel.id == dialogue_id).delete()
+        db.commit()
+    except Exception:
+        pass
+    # 음원 폴더 삭제
+    out = OUTPUT_DIR / dialogue_id
+    if out.exists():
+        shutil.rmtree(str(out))
+    return {"status": "deleted"}
+
+
+@app.post("/api/admin/dialogues/{dialogue_id}/generate")
+async def admin_generate(dialogue_id: str, force: bool = False, db: Session = Depends(get_db)):
+    """음원 강제 재생성 (force=true 이면 캐시 무시)."""
+    import shutil
+    if force:
+        out = OUTPUT_DIR / dialogue_id
+        if out.exists():
+            shutil.rmtree(str(out))
+    raw = None
+    try:
+        from .models_db import Dialogue as DModel
+        row = db.query(DModel).filter(DModel.id == dialogue_id).first()
+        if row:
+            raw = {"title": row.title, "lines": row.lines}
+    except Exception:
+        pass
+    if not raw:
+        raw = get_dialogue(dialogue_id)
+    if not raw:
+        raise HTTPException(404, "Dialogue not found")
+    result = await pipeline.build(dialogue_id, raw["title"], raw["lines"])
+    return {"status": "ready", "duration_sec": result["duration_sec"],
+            "audio_url": f"/output/{dialogue_id}/full.mp3"}
+
 @app.get("/health")
 async def health():
     return {"status": "ok"}
