@@ -25,21 +25,21 @@ export default function DialogueList({ onStart }) {
             >
               <span className="card-title">{d.title}</span>
               <span className="card-meta">{d.line_count} lines</span>
+              {d.audio_ready && <span className="ready-badge">✓ 준비됨</span>}
             </button>
           ))}
         </div>
       </section>
 
       <div className="method-info">
-        <h3>PM6R 훈련 방식</h3>
+        <h3>PM6R 훈련 구조</h3>
         <div className="round-list">
           {[
-            ['P2','Memorization','3회 반복 듣기 + 한글 확인'],
-            ['P3','Repetition',  '청크별 듣고 바로 따라말하기'],
-            ['P4','Reflection',  '텍스트 보며 5초 후 말하기'],
-            ['P5','Rehearsal',   '대화 흐름 속 10초 후 말하기'],
-            ['P6','Recital',     '한글만 보고 15초 후 말하기'],
-            ['P7','Retrieval',   '한글 큐만 보고 25초 완전 인출'],
+            ['1','전체 듣기',      '전체 다이얼로그 2회 재생'],
+            ['2','분할 듣기',      '전반부 / 후반부 나눠서 2회씩'],
+            ['3','문장 반복',      '각 문장 3회 반복 + 따라말하기 텀'],
+            ['4','역할극',         'A/B 역할 번갈아 수행'],
+            ['5','최종 점검',      '혼자 말하고 정답 확인'],
           ].map(([num, name, desc]) => (
             <div key={num} className="round-item">
               <span className="round-num">{num}</span>

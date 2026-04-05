@@ -1,0 +1,114 @@
+.player-shell {
+  min-height: 100vh; display: flex; flex-direction: column;
+  background: var(--bg);
+}
+.player-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.exit-link { color: var(--muted); font-size: 14px; transition: color .2s; }
+.exit-link:hover { color: var(--text); }
+.player-title { font-family: var(--font-head); font-size: 16px; letter-spacing: .06em; color: var(--accent); }
+.ko-toggle { width:32px; height:32px; border-radius:8px; border:1px solid var(--border); font-size:14px; font-weight:700; transition:background .2s,border-color .2s,color .2s; }
+.ko-toggle.on  { background:rgba(71,197,255,.15); border-color:var(--accent2); color:var(--accent2); }
+.ko-toggle.off { background:var(--surface); color:var(--muted); }
+
+.section-indicator {
+  text-align: center; padding: 8px;
+  font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+  font-weight: 500; transition: color .5s; flex-shrink: 0;
+}
+
+/* 가사 영역 */
+.lyrics-area {
+  flex: 1; overflow-y: auto; padding: 16px 20px 8px;
+  scroll-behavior: smooth;
+}
+.lyric-line {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 12px; border-radius: 10px; cursor: pointer;
+  transition: background .2s, opacity .3s;
+  margin-bottom: 4px;
+}
+.lyric-line.active  { background: rgba(232,255,71,.08); opacity: 1; }
+.lyric-line.past    { opacity: .35; }
+.lyric-line.future  { opacity: .6; }
+.lyric-line:hover   { background: rgba(255,255,255,.04); }
+
+.spk-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+}
+.spk-A { background: rgba(255,107,107,.2); color: #ff6b6b; }
+.spk-B { background: rgba(71,197,255,.2);  color: #47c5ff; }
+
+.lyric-text-wrap { display: flex; flex-direction: column; gap: 3px; }
+.lyric-en { font-size: 16px; line-height: 1.4; }
+.lyric-line.active .lyric-en { font-size: 18px; font-weight: 500; color: var(--text); }
+.lyric-ko { font-size: 13px; color: var(--accent2); font-weight: 300; }
+
+/* 컨트롤 */
+.controls {
+  flex-shrink: 0; padding: 12px 20px 28px;
+  border-top: 1px solid var(--border); background: var(--surface);
+}
+.progress-bar {
+  height: 4px; background: var(--border); border-radius: 2px;
+  cursor: pointer; position: relative; margin-bottom: 6px;
+}
+.progress-fill {
+  height: 100%; background: var(--accent); border-radius: 2px;
+  transition: width .1s linear; pointer-events: none;
+}
+.loop-start, .loop-end {
+  position: absolute; top: -4px; width: 2px; height: 12px;
+  background: #fb923c; border-radius: 1px;
+}
+.time-row {
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: var(--muted); margin-bottom: 12px;
+}
+.btn-row {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  margin-bottom: 12px;
+}
+.btn-ctrl {
+  padding: 8px 14px; border-radius: 8px;
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--muted); font-size: 13px; transition: border-color .2s, color .2s;
+}
+.btn-ctrl:hover { border-color: var(--muted); color: var(--text); }
+.btn-play-main {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--accent); color: #0a0a0f; font-size: 22px;
+  transition: transform .15s, box-shadow .2s;
+  box-shadow: 0 0 30px rgba(232,255,71,.2);
+}
+.btn-play-main:hover { transform: scale(1.08); box-shadow: 0 0 50px rgba(232,255,71,.35); }
+
+.options-row {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+}
+.speed-btns { display: flex; gap: 4px; }
+.btn-speed {
+  padding: 5px 10px; border-radius: 6px; font-size: 12px;
+  background: var(--bg); border: 1px solid var(--border); color: var(--muted);
+  transition: all .2s;
+}
+.btn-speed.active { border-color: var(--accent); color: var(--accent); background: rgba(232,255,71,.1); }
+.loop-btns { display: flex; gap: 4px; align-items: center; }
+.btn-loop-point {
+  width: 28px; height: 28px; border-radius: 6px; font-size: 12px; font-weight: 700;
+  background: var(--bg); border: 1px solid var(--border); color: var(--muted);
+  transition: all .2s;
+}
+.btn-loop-point:hover { border-color: #fb923c; color: #fb923c; }
+.btn-loop-toggle {
+  width: 36px; height: 28px; border-radius: 6px; font-size: 14px;
+  background: var(--bg); border: 1px solid var(--border); color: var(--muted);
+  transition: all .2s;
+}
+.btn-loop-toggle.active { border-color: #fb923c; color: #fb923c; background: rgba(251,146,60,.1); }
+.btn-loop-toggle:disabled { opacity: .3; cursor: not-allowed; }
