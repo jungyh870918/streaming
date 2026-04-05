@@ -14,7 +14,12 @@ class TTSService:
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.meta_file = self.cache_dir / "meta.json"
-        self.meta: dict = json.loads(self.meta_file.read_text()) if self.meta_file.exists() else {}
+        self.meta: dict = {}
+        if self.meta_file.exists():
+            try:
+                self.meta = json.loads(self.meta_file.read_text(encoding="utf-8"))
+            except Exception:
+                self.meta = {}
 
     def _hash(self, text, voice, rate):
         return hashlib.md5(f"{text}|{voice}|{rate}".encode()).hexdigest()
