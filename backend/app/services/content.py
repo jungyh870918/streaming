@@ -1,6 +1,68 @@
 """Built-in sample dialogues."""
 SAMPLE_DIALOGUES = [
     {
+        "id": "shoe_shopping",
+        "title": "Shoe Shopping",
+        "lines": [
+            {"speaker": "A", "text": "May I help you?",
+             "translation": "도와드릴까요?"},
+            {"speaker": "B", "text": "Yes, I am looking for shoes.",
+             "translation": "네, 신발을 찾고 있어요."},
+            {"speaker": "A", "text": "What color would you like?",
+             "translation": "어떤 색깔을 원하세요?"},
+            {"speaker": "B", "text": "Black, please.",
+             "translation": "검정색으로요."},
+            {"speaker": "A", "text": "And what size do you want?",
+             "translation": "사이즈는 어떻게 되세요?"},
+            {"speaker": "B", "text": "I am not sure.",
+             "translation": "잘 모르겠어요."},
+            {"speaker": "A", "text": "How about these shoes?",
+             "translation": "이 신발은 어떠세요?"},
+            {"speaker": "B", "text": "May I try them on?",
+             "translation": "신어봐도 될까요?"},
+            {"speaker": "A", "text": "Of course. Here you are.",
+             "translation": "물론이죠. 여기 있어요."},
+            {"speaker": "B", "text": "Thank you. How much are they?",
+             "translation": "감사합니다. 얼마예요?"},
+            {"speaker": "A", "text": "They are twenty dollars.",
+             "translation": "20달러입니다."},
+            {"speaker": "B", "text": "That is too expensive.",
+             "translation": "너무 비싸네요."},
+            {"speaker": "A", "text": "I am sorry. That is all right.",
+             "translation": "죄송합니다. 괜찮아요."},
+        ]
+    },
+    {
+        "id": "shoe_sale",
+        "title": "Shoe Sale",
+        "lines": [
+            {"speaker": "A", "text": "How much is this pair?",
+             "translation": "이 신발 한 켤레는 얼마예요?"},
+            {"speaker": "B", "text": "Well, they are normally seventy dollars, but they are on sale for forty dollars.",
+             "translation": "원래는 70달러인데, 지금 40달러에 세일 중이에요."},
+            {"speaker": "A", "text": "That is good. Are they real leather?",
+             "translation": "좋네요. 진짜 가죽인가요?"},
+            {"speaker": "B", "text": "Of course. We sell only real leather products.",
+             "translation": "물론이죠. 저희는 진짜 가죽 제품만 판매해요."},
+            {"speaker": "A", "text": "Okay, I will take them.",
+             "translation": "좋아요, 이걸로 살게요."},
+        ]
+    },
+    {
+        "id": "at_the_bank",
+        "title": "At the Bank",
+        "lines": [
+            {"speaker": "A", "text": "I would like to cash this check, please.",
+             "translation": "이 수표를 현금으로 바꾸고 싶어요."},
+            {"speaker": "B", "text": "Sure. Could you fill this out and show me your ID please?",
+             "translation": "네. 이걸 작성해주시고 신분증을 보여주시겠어요?"},
+            {"speaker": "A", "text": "Of course. Here you are.",
+             "translation": "물론이죠. 여기 있어요."},
+            {"speaker": "B", "text": "Everything will be taken care of shortly.",
+             "translation": "곧 처리해 드리겠습니다."},
+        ]
+    },
+    {
         "id": "coffee_shop",
         "title": "At the Coffee Shop",
         "lines": [
@@ -50,9 +112,11 @@ SAMPLE_DIALOGUES = [
     },
 ]
 
+
 def get_all_dialogues():
     return [{"id": d["id"], "title": d["title"], "line_count": len(d["lines"])}
             for d in SAMPLE_DIALOGUES]
+
 
 def get_dialogue(dialogue_id: str):
     return next((d for d in SAMPLE_DIALOGUES if d["id"] == dialogue_id), None)
