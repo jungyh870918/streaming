@@ -12,8 +12,12 @@ from ..core.chunker import Chunker
 from ..core.tts_service import TTSService
 
 
+VOICES = {"A": "en-US-GuyNeural", "B": "en-US-JennyNeural", "default": "en-US-JennyNeural"}
+
 def _audio_key(text: str, voice: str, rate: str = "-10%") -> str:
-    return hashlib.md5(f"{text}|{voice}|{rate}".encode()).hexdigest()
+    """TTS 저장 시와 동일한 해시 — voice 코드를 실제 음성명으로 변환 후 계산."""
+    resolved = VOICES.get(voice, voice)
+    return hashlib.md5(f"{text}|{resolved}|{rate}".encode()).hexdigest()
 
 
 class PM6RBuilder:
