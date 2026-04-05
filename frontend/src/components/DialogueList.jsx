@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './DialogueList.css'
 
-const TEMPLATE_OPTIONS = [
-  { value: 'dialogue_memorization', label: '핵심 훈련', desc: '청크 반복 + 인출' },
-  { value: 'chunked_repetition',    label: '워밍업',    desc: '청크별 따라말하기' },
-  { value: 'cue_based_recall',      label: '고급 인출', desc: '한글 큐 → 영어' },
-  { value: 'simple_repeat',         label: '입문',      desc: '듣고 따라말하기' },
-]
-
 export default function DialogueList({ onStart }) {
   const [dialogues, setDialogues] = useState([])
-  const [selected, setSelected] = useState(null)
-  const [template, setTemplate] = useState('dialogue_memorization')
+  const [selected,  setSelected]  = useState(null)
 
   useEffect(() => {
-    fetch('/api/dialogues').then(r=>r.json()).then(d => {
+    fetch('/api/dialogues').then(r => r.json()).then(d => {
       setDialogues(d.dialogues)
       if (d.dialogues.length) setSelected(d.dialogues[0].id)
     })
@@ -38,28 +30,28 @@ export default function DialogueList({ onStart }) {
         </div>
       </section>
 
-      <section className="section">
-        <h2 className="section-title">훈련 방식</h2>
-        <div className="template-grid">
-          {TEMPLATE_OPTIONS.map(t => (
-            <button
-              key={t.value}
-              className={`template-card ${template === t.value ? 'active' : ''}`}
-              onClick={() => setTemplate(t.value)}
-            >
-              <span className="t-label">{t.label}</span>
-              <span className="t-desc">{t.desc}</span>
-            </button>
+      <div className="method-info">
+        <h3>PM6R 훈련 방식</h3>
+        <div className="round-list">
+          {[
+            ['P2','Memorization','3회 반복 듣기 + 한글 확인'],
+            ['P3','Repetition',  '청크별 듣고 바로 따라말하기'],
+            ['P4','Reflection',  '텍스트 보며 5초 후 말하기'],
+            ['P5','Rehearsal',   '대화 흐름 속 10초 후 말하기'],
+            ['P6','Recital',     '한글만 보고 15초 후 말하기'],
+            ['P7','Retrieval',   '한글 큐만 보고 25초 완전 인출'],
+          ].map(([num, name, desc]) => (
+            <div key={num} className="round-item">
+              <span className="round-num">{num}</span>
+              <span className="round-name">{name}</span>
+              <span className="round-desc">{desc}</span>
+            </div>
           ))}
         </div>
-      </section>
+      </div>
 
       <div className="start-row">
-        <button
-          className="start-btn"
-          disabled={!selected}
-          onClick={() => onStart(selected, template)}
-        >
+        <button className="start-btn" disabled={!selected} onClick={() => onStart(selected)}>
           훈련 시작
         </button>
       </div>
